@@ -1,0 +1,1 @@
+import{b as r}from"./index-3ff32cc2.js";var t=e=>{if(typeof e!="string")throw new TypeError("Expected a string");return e.replace(/[|\\{}()[\]^$+*?.]/g,"\\$&").replace(/-/g,"\\x2d")};const a=r(t);export{a,t as e};
