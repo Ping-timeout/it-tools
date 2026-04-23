@@ -1,0 +1,71 @@
+name: Sync IT-Tools Release
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Daily at midnight
+  workflow_dispatch:   # Manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Get all branches
+
+      - name: Get Latest Release Info
+        id: it-tools
+        run: |
+          # Fetch the latest release tag
+          LATEST_TAG=$(curl -s https://api.github.com/repos/sharevb/it-tools/releases/latest | jq -r .tag_name)
+          # Prepare the clean version for the filename (remove 'v')
+          CLEAN_TAG=$(echo $LATEST_TAG | sed 's/^v//')
+          
+          echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          echo "url=https://github.com/sharevb/it-tools/releases/download/$LATEST_TAG/it-tools-$CLEAN_TAG.zip" >> $GITHUB_OUTPUT
+
+      - name: Check if update is needed
+        id: check
+        run: |
+          # Compare against version.txt on the current main branch
+          if [ -f version.txt ] && [ "$(cat version.txt)" == "${{ steps.it-tools.outputs.tag }}" ]; then
+            echo "Already up to date."
+            echo "needs_update=false" >> $GITHUB_OUTPUT
+          else
+            echo "needs_update=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update Branches
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          # 1. Setup Identity
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 2. Download and Extract to a temporary folder
+          wget -O it-tools.zip "${{ steps.it-tools.outputs.url }}"
+          unzip -o it-tools.zip # This creates a 'dist' folder
+
+          # 3. Handle the DEPLOY branch
+          git checkout -B deploy
+          # Delete everything except .git, .github, and our new 'dist' folder
+          find . -maxdepth 1 ! -name '.github' ! -name '.git' ! -name 'dist' ! -name '.' -exec rm -rf {} +
+          # Move files from dist to the root
+          cp -r dist/* .
+          rm -rf dist it-tools.zip
+          
+          # Force push the static files to 'deploy'
+          git add .
+          git commit -m "Deploy static files for ${{ steps.it-tools.outputs.tag }}"
+          git push origin deploy --force
+
+          # 4. Handle the MAIN branch (To update the tracker)
+          git checkout main
+          echo "${{ steps.it-tools.outputs.tag }}" > version.txt
+          git add version.txt
+          git commit -m "chore: update version tracker to ${{ steps.it-tools.outputs.tag }}"
+          git push origin main
