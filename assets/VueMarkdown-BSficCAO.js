@@ -1,0 +1,1 @@
+import{A as e,F as t,N as n,b as r,bt as i,lt as a}from"./vue.runtime.esm-bundler-C0qeGFLU.js";import{t as o}from"./markdown-it-D8YLyeGi.js";t(),a();var s=e(e=>{let t=i(new o(e.options??{}));for(let n of e.plugins??[])t.value.use(n);let a=r(()=>t.value.render(e.source));return()=>n(`div`,{innerHTML:a.value})},{props:[`source`,`options`,`plugins`]});export{s as default};

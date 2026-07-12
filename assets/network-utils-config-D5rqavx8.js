@@ -1,0 +1,1 @@
+import{_t as e,lt as t}from"./vue.runtime.esm-bundler-C0qeGFLU.js";import{n,t as r}from"./queryParams-CtascB_k.js";t();function i({toolKey:t,urlStorageKey:i,authStorageKey:a}){let o=String(r(`${t}:url`,``)||``).trim(),s=String(r(`${t}:auth`,``)||``).trim(),c=!!o;return{serverHost:c?e(o):n(i,`http://localhost:8000`),serverAuth:c?e(s):n(a,``),hasFixedConfig:c}}export{i as t};

@@ -1,0 +1,1 @@
+import{A as e,F as t,Tt as n,lt as r,q as i,w as a}from"./vue.runtime.esm-bundler-C0qeGFLU.js";import{a as o}from"./vue-router-ByvJQbuz.js";t(),r();var s=[`innerHTML`],c=e({__name:`ExternalToolContent`,setup(e){let t=o();return(e,r)=>(i(),a(`div`,{key:n(t).path,class:`external-tool`,innerHTML:n(t).meta.externalHTMLContent},null,8,s))}});export{c as default};

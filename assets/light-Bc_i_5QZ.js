@@ -1,0 +1,1 @@
+import{t as e}from"./use-theme-CCKqJxKK.js";import{t}from"./light-CLwlD-S_.js";import{a as n}from"./light-DmRFH9bY.js";import{t as r}from"./light-oGJ0DZ-u.js";function i(e){let{boxShadow2:t}=e;return{menuBoxShadow:t}}var a=e({name:`AutoComplete`,common:t,peers:{InternalSelectMenu:n,Input:r},self:i});export{i as n,a as t};

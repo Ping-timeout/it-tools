@@ -1,0 +1,1 @@
+var e=`/assets/prime.worker.min-QwIGHfMM.js`;export{e as t};

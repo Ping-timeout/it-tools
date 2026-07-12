@@ -1,0 +1,11 @@
+import{A as e,F as t,O as n,Tt as r,_t as i,b as a,ft as o,it as s,lt as c,q as l,w as u}from"./vue.runtime.esm-bundler-C0qeGFLU.js";import{t as d}from"./TextareaCopyable-CVIofnkG.js";import{t as f}from"./Card-xXv8jywY.js";import{t as p}from"./c-input-text-BrUjPm2a.js";import{n as m}from"./vue-i18n.runtime-D_YDj0zU.js";import{r as h,t as g}from"./browser-BQxamErt.js";h();function _(e){if(!e?.trim())return{dotenv:``,updatedCompose:``};let t=g.parse(e),n=[];for(let[e,r]of Object.entries(t?.services||{})){let t=r.environment;if(t===null)continue;let i=[],a=[];if(Array.isArray(t))for(let e of t){let[t,n=``]=e.split(`=`);if(n?.trim().match(/^\$\{.*?\}$/)){a.push(e);continue}i.push(`${t.trim()}=${n.trim()}`),a.push(`${t.trim()}=\$\{${t.trim()}\}`)}else if(typeof t==`object`)for(let[e,n]of Object.entries(t)){if(n?.toString().trim().match(/^\$\{.*?\}$/)){a.push(`${e.trim()}=${(n??``).toString().trim()}`);continue}i.push(`${e.trim()}=${(n??``).toString().trim()}`),a.push(`${e.trim()}=\$\{${e.trim()}\}`)}i.length&&(r.environment=a,n.push(`# ${e}`),n.push(...i),n.push(``))}return{dotenv:n.join(`
+`),updatedCompose:g.stringify(t)}}t(),c();var v=e({__name:`docker-compose-to-env-file`,setup(e){let{t}=m(),c=i(`services:
+  web:
+    environment:
+      PORT: 3000
+      DEBUG: true
+  db:
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secret
+`),h=a(()=>{try{return _(c.value)}catch(e){return e.toString()}});return(e,i)=>{let a=p,m=d,g=f;return l(),u(`div`,null,[n(a,{value:r(c),"onUpdate:value":i[0]||=e=>o(c)?c.value=e:null,label:r(t)(`tools.docker-compose-to-env-file.texts.label-docker-compose-file`),multiline:``,placeholder:r(t)(`tools.docker-compose-to-env-file.texts.placeholder-paste-your-docker-compose-yaml-here`),rows:`10`,"mb-2":``},null,8,[`value`,`label`,`placeholder`]),n(g,{title:r(t)(`tools.docker-compose-to-env-file.texts.title-extract-env`)},{default:s(()=>[n(m,{value:r(h).dotenv,"onUpdate:value":i[1]||=e=>r(h).dotenv=e,rows:`3`,"download-file-name":`.env`,multiline:``},null,8,[`value`])]),_:1},8,[`title`]),n(g,{title:r(t)(`tools.docker-compose-to-env-file.texts.title-updated-docker-compose`)},{default:s(()=>[n(m,{value:r(h).updatedCompose,"onUpdate:value":i[2]||=e=>r(h).updatedCompose=e,rows:`3`,"download-file-name":`compose.yml`,multiline:``},null,8,[`value`])]),_:1},8,[`title`])])}}});export{v as default};

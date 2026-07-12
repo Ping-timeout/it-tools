@@ -1,0 +1,1 @@
+function e(e){return e.trim().split(``).map(e=>Number.parseInt(e,16).toString(2).padStart(4,`0`)).join(``)}export{e as t};

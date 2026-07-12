@@ -1,0 +1,1 @@
+import{F as e,lt as t,pt as n,q as r,w as i,x as a}from"./vue.runtime.esm-bundler-C0qeGFLU.js";t(),e();var o={viewBox:`0 0 24 24`,width:`1.2em`,height:`1.2em`};function s(e,t){return r(),i(`svg`,o,[...t[0]||=[a(`path`,{fill:`currentColor`,d:`M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7z`},null,-1)]])}var c=n({name:`mdi-download`,render:s});export{c as t};

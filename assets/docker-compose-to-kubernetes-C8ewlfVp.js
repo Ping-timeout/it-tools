@@ -1,0 +1,10 @@
+import{A as e,C as t,F as n,Nt as r,O as i,Tt as a,Y as o,Zt as s,_t as c,b as l,ft as u,h as d,it as f,lt as p,q as m,w as h,x as g}from"./vue.runtime.esm-bundler-C0qeGFLU.js";import{t as _}from"./TextareaCopyable-CVIofnkG.js";import{t as v}from"./Alert-BwUALhuU.js";import{t as y}from"./Divider-B-RN6EqL.js";import{n as b}from"./vue-i18n.runtime-D_YDj0zU.js";import{t as x}from"./c-label-v2BhWGWn.js";import{t as S}from"./c-monaco-editor-LqUR6cMk.js";import{t as C}from"./dist-DKJVD2N_.js";n(),p(),r();var w=C(),T={relative:``,"w-full":``},E={key:0},D=e({__name:`docker-compose-to-kubernetes`,setup(e){let{t:n}=b(),r=c(`version: '3.3'
+services:
+    nginx:
+        ports:
+            - '80:80'
+        volumes:
+            - '/var/run/docker.sock:/tmp/docker.sock:ro'
+        restart: always
+        image: nginx`),p=l(()=>{try{return{kubeYaml:(0,w.convert)(r.value.trim()),errors:[]}}catch(e){return{kubeYaml:`#see error messages`,errors:e.toString().split(`
+`)}}}),C=l(()=>p.value.errors),D=l(()=>p.value.kubeYaml),O={automaticLayout:!0,formatOnType:!0,formatOnPaste:!0};return(e,c)=>{let l=S,p=x,b=v,w=y;return m(),h(`div`,null,[i(p,{label:a(n)(`tools.docker-compose-to-kubernetes.texts.label-paste-your-docker-compose-file-content`)},{default:f(()=>[g(`div`,T,[i(l,{value:a(r),"onUpdate:value":c[0]||=e=>u(r)?r.value=e:null,theme:`vs-dark`,language:`yaml`,height:`250px`,options:O},null,8,[`value`])])]),_:1},8,[`label`]),a(C).length>0?(m(),h(`div`,E,[i(b,{title:a(n)(`tools.docker-compose-to-kubernetes.texts.title-the-following-errors-occured`),type:`error`,"mt-5":``},{default:f(()=>[g(`ul`,null,[(m(!0),h(d,null,o(a(C),(e,t)=>(m(),h(`li`,{key:t},s(e),1))),128))])]),_:1},8,[`title`])])):t(``,!0),i(w),i(_,{value:a(D),language:`yaml`,"copy-placement":`outside`},null,8,[`value`])])}}});export{D as default};

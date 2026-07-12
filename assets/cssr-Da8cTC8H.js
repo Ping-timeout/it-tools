@@ -1,0 +1,1 @@
+import{g as e}from"./use-theme-CCKqJxKK.js";var{c:t}=e(),n=`vueuc-style`;export{n,t};
