@@ -1,8 +1,6 @@
 name: Sync IT-Tools Release
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # Daily at midnight
   workflow_dispatch:   # Manual trigger
 
 permissions:
