@@ -1,0 +1,1 @@
+import{t as e}from"./base-url-Da-qNPjZ.js";var t=await fetch(`${e}tools-settings.json`).then(e=>e.ok?e.json():{}).catch(()=>({})),n=t.offline===!0;export{t as n,n as t};
