@@ -1,0 +1,1 @@
+import{F as e,mt as t,q as n,ut as r,w as i,x as a}from"./vue.runtime.esm-bundler-DZZTqpJU.js";r(),e();var o={viewBox:`0 0 24 24`,width:`1.2em`,height:`1.2em`};function s(e,t){return n(),i(`svg`,o,[...t[0]||=[a(`path`,{fill:`currentColor`,d:`M21 7L9 19l-5.5-5.5l1.41-1.41L9 16.17L19.59 5.59z`},null,-1)]])}var c=t({name:`mdi-check`,render:s});export{c as t};

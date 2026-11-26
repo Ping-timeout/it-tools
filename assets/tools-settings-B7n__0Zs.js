@@ -1,0 +1,1 @@
+function e(e,t,n){return String(e[t]?.[n]??``).trim()}export{e as t};
