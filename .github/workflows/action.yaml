@@ -18,15 +18,18 @@ jobs:
       - name: Get Latest Release Info
         id: it-tools
         run: |
+          # Fetch the latest release tag
           LATEST_TAG=$(curl -s https://api.github.com/repos/sharevb/it-tools/releases/latest | jq -r .tag_name)
+          # Prepare the clean version for the filename (remove 'v')
           CLEAN_TAG=$(echo "$LATEST_TAG" | sed 's/^v//')
-
+          
           echo "tag=$LATEST_TAG" >> "$GITHUB_OUTPUT"
           echo "url=https://github.com/sharevb/it-tools/releases/download/$LATEST_TAG/it-tools-$CLEAN_TAG.zip" >> "$GITHUB_OUTPUT"
 
       - name: Check if update is needed
         id: check
         run: |
+          # Compare against version.txt on the current main branch
           if [ -f version.txt ] && [ "$(cat version.txt)" == "${{ steps.it-tools.outputs.tag }}" ]; then
             echo "Already up to date."
             echo "needs_update=false" >> "$GITHUB_OUTPUT"
@@ -48,7 +51,7 @@ jobs:
 
           # 2. Download and Extract to a temporary folder
           wget -O it-tools.zip "${{ steps.it-tools.outputs.url }}"
-          unzip -o it-tools.zip # Creates a 'dist' folder
+          unzip -o it-tools.zip # This creates a 'dist' folder
 
           # 3. Handle the DEPLOY branch
           git checkout -B deploy
@@ -60,7 +63,10 @@ jobs:
 
           # 4. Offload files >24 MiB (e.g., ffmpeg-core-*.wasm) to R2 and rewrite JS references
           BASE_URL="${R2_PUBLIC_URL%/}"
-          find . -type f -size +24M -not -path './.git/*' | while read -r LARGE_FILE; do
+          shopt -s nullglob
+          JS_FILES=( *.js assets/*.js )
+
+          find . -type f -size +24M -not -path './.git/*' | while IFS= read -r LARGE_FILE; do
             REL_PATH="${LARGE_FILE#./}"
             FILE_NAME=$(basename "$LARGE_FILE")
             echo "Uploading $REL_PATH to R2..."
@@ -76,7 +82,10 @@ jobs:
               --remote
 
             # Rewrite relative/root-relative references in compiled JS bundles to the R2 URL
-            perl -pi -e "s|(\.?/?assets/|\./)?\Q$FILE_NAME\E|$BASE_URL/$REL_PATH|g" assets/*.js
+            if [ ${#JS_FILES[@]} -gt 0 ]; then
+              FILE_NAME="$FILE_NAME" TARGET_URL="$BASE_URL/$REL_PATH" \
+                perl -pi -e 's{(?:\.?/?assets/|\./)?\Q$ENV{FILE_NAME}\E}{$ENV{TARGET_URL}}g' "${JS_FILES[@]}"
+            fi
 
             # Remove the oversized file from the Pages deployment directory
             rm -f "$LARGE_FILE"
